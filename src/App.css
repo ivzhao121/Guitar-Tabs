@@ -1,0 +1,10 @@
+#root {
+  max-width: auto;
+}
+
+
+.sheet {
+  font-family: monospace;
+  font-size: 2vh;
+  color:black
+}
