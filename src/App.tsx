@@ -2,42 +2,42 @@ import { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Sheet from './components/Sheet';
 import './App.css'
 
+
 function App() {
-  const [sheet, setSheet] = useState<String[][]>([["E |", "A |", "D |","G |","B |","E |"]])
-  const [firstString, setFirstString] = useState<String>("-")
-  const [secondString, setSecondString] = useState<String>("-")
-  const [thirdString, setThirdString] = useState<String>("-")
-  const [fourthString, setFourthString] = useState<String>("-")
-  const [fifthString, setFifthString] = useState<String>("-")
-  const [sixString, setSixString] = useState<String>("-")
+  const [sheet, setSheet] = useState<string[][]>([])
+  const [firstString, setFirstString] = useState<string>("-")
+  const [secondString, setSecondString] = useState<string>("-")
+  const [thirdString, setThirdString] = useState<string>("-")
+  const [fourthString, setFourthString] = useState<string>("-")
+  const [fifthString, setFifthString] = useState<string>("-")
+  const [sixString, setSixString] = useState<string>("-")
 
 
-  function addNote(e: React.FormEvent, prevSheet: String[][]) {
+  function addNote(e: React.FormEvent, prevSheet: string[][]) {
     e.preventDefault()
     let newGrid = prevSheet.map((rowArray) => [...rowArray]);
 
     let newNotes = [firstString, secondString, thirdString, fourthString, fifthString, sixString]
-    let maxLength = Math.max(...newNotes.map(str => str.length))
-    newNotes = newNotes.map(str => str.padEnd(maxLength, '-'))
-
-    newGrid.push(newNotes)
-    newGrid.push(["-", "-", "-", "-", "-", "-"])
-    
-    setFirstString("-")
-    setSecondString("-")
-    setThirdString("-")
-    setFourthString("-")
-    setFifthString("-")
-    setSixString("-")
-
-    setSheet(newGrid)
+    if (!newNotes.every(str => str === '-')) {
+      newGrid.push(newNotes)
+      
+      setFirstString("-")
+      setSecondString("-")
+      setThirdString("-")
+      setFourthString("-")
+      setFifthString("-")
+      setSixString("-")
+  
+      setSheet(newGrid)
+    }
   }
 
-  function deleteNote(e: React.MouseEvent<HTMLButtonElement>, prevSheet: String[][]) {
+  function deleteNote(e: React.MouseEvent<HTMLButtonElement>, prevSheet: string[][]) {
     e.preventDefault()
-    if (prevSheet.length > 1) {
+    if (prevSheet.length > 0) {
       let newGrid = prevSheet.map((rowArray) => [...rowArray]);
       newGrid.pop()
   
@@ -58,19 +58,7 @@ function App() {
         <Button type="submit" variant="contained" style={{margin: 10}}> Add</Button>
         <Button variant="contained" onClick={(e) => deleteNote(e, sheet)} style={{margin: 10}}> Delete</Button>
       </form>
-
-
-      {sheet.length != 0 && <Box display={'flex'} padding={2} flexWrap={"wrap"}> 
-        {sheet.map( (row, rowIndex) => 
-        <Box key={rowIndex} paddingLeft={.5}>
-        {row.map((note, colIndex) => 
-          <p className = 'sheet' key={rowIndex + colIndex} >
-            {note === "" ? "-" : note}
-          </p>
-          )}
-        </ Box>
-        )}
-        </Box>}
+      <Sheet {...sheet} />
     </Box>
     </>
   )
