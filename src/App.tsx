@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,29 +8,23 @@ import './App.css'
 
 function App() {
   const [sheet, setSheet] = useState<string[][]>([])
-  const [firstString, setFirstString] = useState<string>("-")
-  const [secondString, setSecondString] = useState<string>("-")
-  const [thirdString, setThirdString] = useState<string>("-")
-  const [fourthString, setFourthString] = useState<string>("-")
-  const [fifthString, setFifthString] = useState<string>("-")
-  const [sixString, setSixString] = useState<string>("-")
+  const firstString = useRef<string>("-")
+  const secondString = useRef<string>("-")
+  const thirdString = useRef<string>("-")
+  const fourthString = useRef<string>("-")
+  const fifthString = useRef<string>("-")
+  const sixString = useRef<string>("-")
 
 
   function addNote(e: React.FormEvent, prevSheet: string[][]) {
     e.preventDefault()
-    let newGrid = prevSheet.map((rowArray) => [...rowArray]);
+    const newGrid = prevSheet.map((rowArray) => [...rowArray]);
 
-    let newNotes = [firstString, secondString, thirdString, fourthString, fifthString, sixString]
+    const newNotes = [firstString.current, secondString.current, thirdString.current, fourthString.current, fifthString.current, sixString.current]
     if (!newNotes.every(str => str === '-')) {
       newGrid.push(newNotes)
       
-      setFirstString("-")
-      setSecondString("-")
-      setThirdString("-")
-      setFourthString("-")
-      setFifthString("-")
-      setSixString("-")
-  
+
       setSheet(newGrid)
     }
   }
@@ -38,7 +32,7 @@ function App() {
   function deleteNote(e: React.MouseEvent<HTMLButtonElement>, prevSheet: string[][]) {
     e.preventDefault()
     if (prevSheet.length > 0) {
-      let newGrid = prevSheet.map((rowArray) => [...rowArray]);
+      const newGrid = prevSheet.map((rowArray) => [...rowArray]);
       newGrid.pop()
   
       setSheet(newGrid)
@@ -49,12 +43,12 @@ function App() {
     <>
     <Box padding={1}>
       <form onSubmit={(e: React.FormEvent) => addNote(e, sheet)} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5}}>
-        <TextField id="first-string" label="First-String" variant="standard" value={firstString} onChange={(e) => setFirstString(e.target.value)}/>
-        <TextField id="second-string" label="Second-String" variant="standard" value={secondString} onChange={(e) => setSecondString(e.target.value)}/>
-        <TextField id="third-string" label="Third-String" variant="standard" value={thirdString} onChange={(e) => setThirdString(e.target.value)}/>
-        <TextField id="fourth-string" label="Fourth-String" variant="standard" value={fourthString} onChange={(e) => setFourthString(e.target.value)}/>
-        <TextField id="Fifth-string" label="Fifth-String" variant="standard"  value={fifthString} onChange={(e) => setFifthString(e.target.value)}/>
-        <TextField id="Six-string" label="Six-String" variant="standard"  value={sixString} onChange={(e) => setSixString(e.target.value)}/>
+        <TextField id="first-string" label="First-String" variant="standard" defaultValue={""} onChange={(e) => firstString.current = (e.target.value)}/>
+        <TextField id="second-string" label="Second-String" variant="standard" defaultValue={""} onChange={(e) => secondString.current = (e.target.value)}/>
+        <TextField id="third-string" label="Third-String" variant="standard" defaultValue={""} onChange={(e) => thirdString.current = (e.target.value)}/>
+        <TextField id="fourth-string" label="Fourth-String" variant="standard" defaultValue={""} onChange={(e) => fourthString.current = (e.target.value)}/>
+        <TextField id="Fifth-string" label="Fifth-String" variant="standard"  defaultValue={""} onChange={(e) => fifthString.current = (e.target.value)}/>
+        <TextField id="Six-string" label="Six-String" variant="standard"  defaultValue={""} onChange={(e) => sixString.current = (e.target.value)}/>
         <Button type="submit" variant="contained" style={{margin: 10}}> Add</Button>
         <Button variant="contained" onClick={(e) => deleteNote(e, sheet)} style={{margin: 10}}> Delete</Button>
       </form>

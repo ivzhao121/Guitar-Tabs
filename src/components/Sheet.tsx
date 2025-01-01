@@ -9,11 +9,11 @@ function Sheet(userNotes: string[][]) {
         div.innerHTML = "";
         const renderer = new Renderer(div, Renderer.Backends.SVG);
         // Configure the rendering context.
-        renderer.resize(window.innerWidth, 300);
+        renderer.resize(1000, 500);
         const context = renderer.getContext();
         
         // Create a tab stave of width 400 at position 10, 40 on the canvas.
-        const stave = new TabStave(10, 40, window.innerWidth * .9);
+        const stave = new TabStave(10, 50, 400);
         stave.addClef('tab').setContext(context).draw();
         
         const notes: Vex.TabNote[] = [];
@@ -24,7 +24,8 @@ function Sheet(userNotes: string[][]) {
             const col = userNotes[j]
             for (let i = 0; i < 6; i++){
                 if (col[i] !== '-') {
-                    pos.push({str: i, fret: parseInt(col[i], 10)})
+                    // string positions are 1-indexed so we add 1
+                    pos.push({str: i + 1, fret: parseInt(col[i], 10)})
                 }
             }
             if (pos.length !== 0) { 
@@ -35,6 +36,7 @@ function Sheet(userNotes: string[][]) {
             }
         }
         
+        console.log(notes)
         if (notes.length !== 0) {
             Formatter.FormatAndDraw(context, stave, notes);
         }
