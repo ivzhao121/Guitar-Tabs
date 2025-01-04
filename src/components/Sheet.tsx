@@ -8,8 +8,8 @@ function Sheet(userNotes: string[][]) {
         const div = document.getElementById('output') as HTMLDivElement;
         div.innerHTML = "";
         const renderer = new Renderer(div, Renderer.Backends.SVG);
-        // Configure the rendering context.
-        renderer.resize(1000, 500);
+        // Configure the rendering context. arg1 = width, arg2 = height
+        renderer.resize(window.outerWidth, window.outerHeight * 2);
         const context = renderer.getContext();
         
         // Create a tab stave of width 400 at position 10, 40 on the canvas.
@@ -25,7 +25,7 @@ function Sheet(userNotes: string[][]) {
             for (let i = 0; i < 6; i++){
                 if (col[i] !== '-') {
                     // string positions are 1-indexed so we add 1
-                    pos.push({str: i + 1, fret: parseInt(col[i], 10)})
+                    pos.push({str: i + 1, fret: col[i]})
                 }
             }
             if (pos.length !== 0) { 
@@ -36,10 +36,10 @@ function Sheet(userNotes: string[][]) {
             }
         }
         
-        console.log(notes)
         if (notes.length !== 0) {
             Formatter.FormatAndDraw(context, stave, notes);
         }
+        
     }, [userNotes])
     
     
