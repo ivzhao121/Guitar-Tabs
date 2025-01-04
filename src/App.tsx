@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Vex from 'vexflow';
 import './App.css'
+import Typography from '@mui/material/Typography';
 
 // Calculates the measure number of measure y on stave x
 function calculateCurrentMeasureNumber(x: number, y:number, sheet: Vex.TabNote[][][]) {
@@ -150,18 +151,25 @@ function App() {
         <Button type="submit" variant="contained" style={{margin: 10}}> Add</Button>
         <Button variant="contained" onClick={(e) => deleteNote(e, sheet)} style={{margin: 10}}> Delete</Button>
       </form>
-
+      <Box>
         <Box style={{display: 'flex', justifyContent: 'center'}}>
-          <Button variant="contained" onClick={() => changeStaveNumber(-1)}> - </Button>
-          Stave: {stave_number + 1} 
-          <Button variant="contained" onClick={() => changeStaveNumber(1)}> + </Button> 
+          <Button variant="outlined" onClick={() => changeStaveNumber(-1)}> Previous </Button>
+          <Typography align="center">
+            Stave: {stave_number + 1} 
+          </Typography>
+          <Button variant="outlined" onClick={() => changeStaveNumber(1)}> Next </Button> 
         </Box>
         <Box style={{display: 'flex', justifyContent: 'center'}}>
           <Button variant="contained" onClick={() => changeMeasureNumber(-1)}> - </Button>
+          <Typography>
           Measure: {measure_number + 1}
+          </Typography>
           <Button variant="contained" onClick={() => changeMeasureNumber(1)}> + </Button> 
-
-      </Box>
+    </Box>
+    <Box style={{margin: "auto", textAlign: "center", marginTop: 50}}>
+      <input style={{fontSize: 50, border: 0, textAlign: "center"}} placeholder="Title" />
+    </Box>
+    </Box>
       {/* <Sheet {...sheet} /> */}
       <div id="output" />
     </Box>
