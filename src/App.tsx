@@ -127,8 +127,8 @@ function App() {
           const overlapModifiers = [];
           for (let i = 0; i < tiePair.current[0].modifiers.length; i++) {
             for (let j = 0; j < tiePair.current[1].modifiers.length; j++) {
-              if (tiePair.current[0].modifiers[i].index === tiePair.current[1].modifiers[j].index && tiePair.current[0].modifiers[i].modifier === tiePair.current[1].modifiers[j].modifier) {
-                overlapModifiers.push(tiePair.current[0].modifiers[i]);
+              if (tiePair.current[0].modifiers[i].index === tiePair.current[1].modifiers[j].index) {
+                overlapModifiers.push(tiePair.current[1].modifiers[i]);
               }
             }
           }
@@ -210,7 +210,7 @@ function App() {
   function deleteCurrentMeasure() {
     if (measure_number === 0 && stave_number === 0 && sheet.length === 1 && sheet[0].length === 1) {
       setSheet([[[]]]);
-      setStaves([[new TabStave(10, 50, stave_width)]]);
+      setStaves([[new TabStave(10, 0, stave_width)]]);
       tiePair.current = [];
       tieStack.current = [];
     } else {
@@ -277,16 +277,15 @@ function App() {
     <>
     <Box padding={1}>
       <form onSubmit={(e: React.FormEvent) => addNote(e, sheet)} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5}}>
-        <StringInput inputLabel="First-String" onFretChange={(fret) => strings.current[0] = fret} onTieChange={(tie) => stringTies.current[0] = tie}/>
-        <StringInput inputLabel="Second-String" onFretChange={(fret) => strings.current[1] = fret} onTieChange={(tie) => stringTies.current[1] = tie}/>
-        <StringInput inputLabel="Thrid-String" onFretChange={(fret) => strings.current[2] = fret} onTieChange={(tie) => stringTies.current[2] = tie}/>
-        <StringInput inputLabel="Fourth-String" onFretChange={(fret) => strings.current[3] = fret} onTieChange={(tie) => stringTies.current[3] = tie}/>
-        <StringInput inputLabel="Fifth-String" onFretChange={(fret) => strings.current[4] = fret} onTieChange={(tie) => stringTies.current[4] = tie}/>
-        <StringInput inputLabel="Sixth-String" onFretChange={(fret) => strings.current[5] = fret} onTieChange={(tie) => stringTies.current[5] = tie}/>
+        <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[0] = fret} onTieChange={(tie) => stringTies.current[0] = tie}/>
+        <StringInput inputLabel="A-String" onFretChange={(fret) => strings.current[1] = fret} onTieChange={(tie) => stringTies.current[1] = tie}/>
+        <StringInput inputLabel="D-String" onFretChange={(fret) => strings.current[2] = fret} onTieChange={(tie) => stringTies.current[2] = tie}/>
+        <StringInput inputLabel="G-String" onFretChange={(fret) => strings.current[3] = fret} onTieChange={(tie) => stringTies.current[3] = tie}/>
+        <StringInput inputLabel="B-String" onFretChange={(fret) => strings.current[4] = fret} onTieChange={(tie) => stringTies.current[4] = tie}/>
+        <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[5] = fret} onTieChange={(tie) => stringTies.current[5] = tie}/>
         <Button type="submit" variant="contained" style={{margin: 10}}> Add</Button>
         <Button variant="contained" onClick={(e) => deleteNote(e, sheet)} > Delete</Button> 
         <Button onClick={handleSaveAsImage} style = {{margin: 10}} > Save as Image </Button>
-
       </form>
       <Stack alignItems="center" direction="column" style={{marginBottom: 25}}>
         <Stack alignItems="center" direction="row" gap={2}>
