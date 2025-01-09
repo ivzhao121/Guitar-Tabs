@@ -234,16 +234,17 @@ function App() {
       }
 
       const newTieStack = [] as NoteTie[];
+      let removeCount = 0; 
       for (let i = 0; i < tieStack.current.length; i++) {
         if (removedNotes.map((note: Vex.TabNote) => tieStack.current[i].firstNote !== note && tieStack.current[i].secondNote !== note).every(Boolean)) {
           newTieStack.push(tieStack.current[i]);
+        } else {
+          removeCount += 1;
         }
       }
 
-      if (newTieStack.length !== 0)  {
-        console.log("yes");
+      if (newTieStack.length !== 0 || (removeCount === tieStack.current.length))  {
         tieStack.current = newTieStack;
-        console.log(tieStack.current.length);
       }
 
       tiePair.current = [];
