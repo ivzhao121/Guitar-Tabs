@@ -277,12 +277,12 @@ function App() {
     <>
     <Box padding={1}>
       <form onSubmit={(e: React.FormEvent) => addNote(e, sheet)} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5}}>
-        <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[0] = fret} onTieChange={(tie) => stringTies.current[0] = tie}/>
-        <StringInput inputLabel="A-String" onFretChange={(fret) => strings.current[1] = fret} onTieChange={(tie) => stringTies.current[1] = tie}/>
-        <StringInput inputLabel="D-String" onFretChange={(fret) => strings.current[2] = fret} onTieChange={(tie) => stringTies.current[2] = tie}/>
-        <StringInput inputLabel="G-String" onFretChange={(fret) => strings.current[3] = fret} onTieChange={(tie) => stringTies.current[3] = tie}/>
-        <StringInput inputLabel="B-String" onFretChange={(fret) => strings.current[4] = fret} onTieChange={(tie) => stringTies.current[4] = tie}/>
         <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[5] = fret} onTieChange={(tie) => stringTies.current[5] = tie}/>
+        <StringInput inputLabel="A-String" onFretChange={(fret) => strings.current[4] = fret} onTieChange={(tie) => stringTies.current[4] = tie}/>
+        <StringInput inputLabel="D-String" onFretChange={(fret) => strings.current[3] = fret} onTieChange={(tie) => stringTies.current[3] = tie}/>
+        <StringInput inputLabel="G-String" onFretChange={(fret) => strings.current[2] = fret} onTieChange={(tie) => stringTies.current[2] = tie}/>
+        <StringInput inputLabel="B-String" onFretChange={(fret) => strings.current[1] = fret} onTieChange={(tie) => stringTies.current[1] = tie}/>
+        <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[0] = fret} onTieChange={(tie) => stringTies.current[0] = tie}/>
         <Button type="submit" variant="contained" style={{margin: 10}}> Add</Button>
         <Button variant="contained" onClick={(e) => deleteNote(e, sheet)} > Delete</Button> 
         <Button onClick={handleSaveAsImage} style = {{margin: 10}} > Save as Image </Button>
