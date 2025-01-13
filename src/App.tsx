@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'; 
+import { Analytics } from "@vercel/analytics/react"
 import html2canvas from 'html2canvas';
 import { Box, Button, IconButton, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -277,6 +278,7 @@ function App() {
   return (
     <>
     <Box padding={1}>
+      <Analytics />
       <form onSubmit={(e: React.FormEvent) => addNote(e, sheet)} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5}}>
         <StringInput inputLabel="E-String" onFretChange={(fret) => strings.current[5] = fret} onTieChange={(tie) => stringTies.current[5] = tie}/>
         <StringInput inputLabel="A-String" onFretChange={(fret) => strings.current[4] = fret} onTieChange={(tie) => stringTies.current[4] = tie}/>
